@@ -18,30 +18,35 @@ const gendiff = (filepath1, filepath2) => {
   const uniqKeys = _.union(keys1, keys2);
   console.log(uniqKeys);
 
-  let obj3 = '{'
+  let obj3 = '{ \n'
   for (const key of uniqKeys) {
 	console.log(obj1[key])
+
 	if (obj1[key] === obj2[key]) {
-		obj3 += `    ${key}: ${obj1[key]} \n`; // у меня тут получаются значения а нужны ключи
+		obj3 += `    ${key}: ${obj1[key]} \n`;
 	}
+
+	else if (obj1.hasOwnProperty(key) && !obj2.hasOwnProperty(key)) {
+		obj3 += `  - ${key}: ${obj1[key]} \n`;
+	}
+
+	else if (!obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key)) {
+		obj3 += `  + ${key}: ${obj1[key]} \n`;
+	}
+
+	else if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && obj1[key] !== obj2[key]) {
+		obj3 += `  - ${key}: ${obj1[key]} \n`;
+		obj3 += `  + ${key}: ${obj2[key]} \n`;
+	}
+
   }
-  console.log(obj3)
 
-//   let obj3 = '{'
-
-// 	for (const [key, value] of Object.entries(obj1) ) {
-// 		if (obj1.key === obj2.key) {
-// 			obj3 += `    ${obj1.key}: ${obj1.value}\n`;
-// 		}
-// 	}
-
-// 	obj3 += '}'
-// 	console.log(obj3);
+	obj3 += '}'
 
 	// полученный JSON нужно сначала преобразовать в объект. Дальше хорошим решением будет сначала найти объединение всех ключей (то есть получить массив всех ключей, которые есть и в первом и во втором объекте). А дальше уже пробежаться по этому массиву и смотреть, что стало с каждым из ключей. 
 	// Если ключ есть в первом объекте, но отсутствует во втором - значит удалён. Если отсутствует в первом, но есть во втором - добавлен. И так далее
 
-  return 'end';
+  return obj3;
 };
 
 
