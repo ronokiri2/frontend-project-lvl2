@@ -10,5 +10,11 @@ publish:
 lint:
 		npx eslint .
 
+fix:
+		npx eslint . --fix
+
 test:
 	npm test
+
+run:
+	gendiff file1.json file2.json
