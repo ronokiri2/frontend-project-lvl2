@@ -19,5 +19,9 @@ test:
 run:
 	gendiff file1.json file2.json
 
+runy:
+	gendiff file1.yml file2.yml
+
+
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8

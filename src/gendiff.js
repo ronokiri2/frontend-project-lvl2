@@ -1,5 +1,7 @@
-import * as fs from 'node:fs';
+// import * as fs from 'node:fs';
 import _ from 'lodash';
+// import yaml from 'js-yaml';
+import parse from './parser.js';
 
 // Работает только с файлами file1.json и file2.json
 // не знаю как сделать так, чтобы функция работала и с другими файлами
@@ -31,13 +33,14 @@ const hasKey = (obj, key) => {
 
 // Главная функция сравнения
 const gendiff = (filepath1, filepath2) => {
-  // превращаю json файлы в объекты
-  const json1 = fs.readFileSync(filepath1);
-  const json2 = fs.readFileSync(filepath2);
-  const obj1 = JSON.parse(json1);
-  const obj2 = JSON.parse(json2);
-  //   console.log(obj1);
-  //   console.log(obj2);
+  const obj1 = parse(filepath1);
+  const obj2 = parse(filepath2);
+
+  //   if (obj1 === undefined) {
+  //   console.log('asdasdasdasd')
+  //   }
+  //     console.log(obj1);
+  //     console.log(obj2);
 
   // получаю все ключи из двух объектов
   // и оставляю только уникальные ключи
