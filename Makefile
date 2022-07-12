@@ -22,6 +22,9 @@ run:
 runy:
 	gendiff file1.yml file2.yml
 
+runested:
+	gendiff file3.json file4.json
+
 
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
