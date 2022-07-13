@@ -22,7 +22,7 @@ run:
 runy:
 	gendiff file1.yml file2.yml
 
-runested:
+runest:
 	gendiff file3.json file4.json
 
 
