@@ -25,6 +25,5 @@ runy:
 runest:
 	gendiff file3.json file4.json
 
-
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
