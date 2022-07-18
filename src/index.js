@@ -3,7 +3,7 @@
 // import yaml from 'js-yaml';
 import parse from './parser.js';
 import checkUpdates from './checkUpdates.js';
-import createTxt from './createTxt.js';
+import createNestedTxt from './createTxt.js';
 
 // нужно получить инфу из файлов
 const getInfo = (filepath) => parse(filepath);
@@ -14,11 +14,10 @@ const getInfo = (filepath) => parse(filepath);
 // 3) получает сгенерированную строку
 // 4) возвращает строку
 const gendiff = (filepath1, filepath2, format = 'stylish') => {
-  console.log('ahahahah');
   const obj1 = getInfo(filepath1);
   const obj2 = getInfo(filepath2);
   const difference = checkUpdates(obj1, obj2);
-  const createdTxt = createTxt(difference, format);
+  const createdTxt = createNestedTxt(difference);
   return createdTxt;
 };
 
