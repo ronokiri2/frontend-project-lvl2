@@ -13,7 +13,7 @@ const getInfo = (filepath) => parse(filepath);
 // 2) получает разницу в этих объектах
 // 3) получает сгенерированную строку
 // 4) возвращает строку
-const gendiff = (filepath1, filepath2, format = 'stylish') => {
+const gendiff = (filepath1, filepath2) => {
   const obj1 = getInfo(filepath1);
   const obj2 = getInfo(filepath2);
   const difference = checkUpdates(obj1, obj2);
