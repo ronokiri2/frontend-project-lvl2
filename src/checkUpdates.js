@@ -5,14 +5,6 @@ import _ from 'lodash';
 // Работает только с файлами file1.json и file2.json
 // не знаю как сделать так, чтобы функция работала и с другими файлами
 
-// функция: значения ключей одинаковы?
-const areValuesSame = (obj1, obj2, key) => {
-  if (_.isEqual(obj1[key], obj2[key])) {
-    return true;
-  }
-  return false;
-};
-
 // Главная функция сравнения
 const gendiff = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
@@ -21,21 +13,24 @@ const gendiff = (obj1, obj2) => {
   const sortedUniqKeys = _.sortBy(uniqKeys);
 
   const difference = sortedUniqKeys.map((key) => {
+    const value1 = obj1[key];
+    const value2 = obj2[key];
+
     if (_.has(obj1, key) && !_.has(obj2, key)) {
       return { key, type: 'deleted', value: obj1[key] };
     }
     if (!_.has(obj1, key) && _.has(obj2, key)) {
       return { key, type: 'added', value: obj2[key] };
     }
-    if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
-      return { key, type: 'nested', children: gendiff(obj1[key], obj2[key]) };
+    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
+      return { key, type: 'nested', children: gendiff(value1, value2) };
     }
-    if (_.has(obj1, key) && _.has(obj2, key) && areValuesSame(obj1, obj2, key) === false) {
+    if (!_.isEqual(value1, value2)) {
       return {
-        key, type: 'changed', valueBefore: obj1[key], valueAfter: obj2[key],
+        key, type: 'changed', valueBefore: value1, valueAfter: value2,
       };
     }
-    return { key, type: 'unchanged', value: obj1[key] };
+    return { key, type: 'unchanged', value: value1 };
   });
 
   return difference;
