@@ -13,14 +13,6 @@ const areValuesSame = (obj1, obj2, key) => {
   return false;
 };
 
-// функция: у объекта есть ключ?
-const hasKey = (obj, key) => {
-  if (Object.prototype.hasOwnProperty.call(obj, key)) {
-    return true;
-  }
-  return false;
-};
-
 // Главная функция сравнения
 const gendiff = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
@@ -28,21 +20,17 @@ const gendiff = (obj1, obj2) => {
   const uniqKeys = _.union(keys1, keys2);
   const sortedUniqKeys = _.sortBy(uniqKeys);
 
-  // функция ниже вызывается не сразу
   const difference = sortedUniqKeys.map((key) => {
-    // if (areValuesSame(obj1, obj2, key) === true) {
-    // если значения ключей одинаковы
-    // return {key: key, type: 'unchanged', value: obj1[key]};
-    if (hasKey(obj1, key) && !hasKey(obj2, key)) {
+    if (_.has(obj1, key) && !_.has(obj2, key)) {
       return { key, type: 'deleted', value: obj1[key] };
     }
-    if (!hasKey(obj1, key) && hasKey(obj2, key)) {
+    if (!_.has(obj1, key) && _.has(obj2, key)) {
       return { key, type: 'added', value: obj2[key] };
     }
     if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
       return { key, type: 'nested', children: gendiff(obj1[key], obj2[key]) };
     }
-    if (hasKey(obj1, key) && hasKey(obj2, key) && areValuesSame(obj1, obj2, key) === false) {
+    if (_.has(obj1, key) && _.has(obj2, key) && areValuesSame(obj1, obj2, key) === false) {
       return {
         key, type: 'changed', valueBefore: obj1[key], valueAfter: obj2[key],
       };
