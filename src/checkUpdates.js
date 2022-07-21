@@ -17,17 +17,32 @@ const gendiff = (obj1, obj2) => {
     const value2 = obj2[key];
 
     if (_.has(obj1, key) && !_.has(obj2, key)) {
-      return { key, type: 'deleted', value: obj1[key] };
+      return {
+        key,
+        type: 'deleted',
+        value: obj1[key],
+      };
     }
     if (!_.has(obj1, key) && _.has(obj2, key)) {
-      return { key, type: 'added', value: obj2[key] };
+      return {
+        key,
+        type: 'added',
+        value: obj2[key],
+      };
     }
     if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
-      return { key, type: 'nested', children: gendiff(value1, value2) };
+      return {
+        key,
+        type: 'nested',
+        children: gendiff(value1, value2),
+      };
     }
     if (!_.isEqual(value1, value2)) {
       return {
-        key, type: 'changed', valueBefore: value1, valueAfter: value2,
+        key,
+        type: 'changed',
+        valueBefore: value1,
+        valueAfter: value2,
       };
     }
     return { key, type: 'unchanged', value: value1 };
