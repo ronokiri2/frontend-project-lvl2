@@ -1,11 +1,5 @@
-// import * as fs from 'node:fs';
 import _ from 'lodash';
-// import yaml from 'js-yaml';
 
-// Работает только с файлами file1.json и file2.json
-// не знаю как сделать так, чтобы функция работала и с другими файлами
-
-// Главная функция сравнения
 const gendiff = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
@@ -20,14 +14,14 @@ const gendiff = (obj1, obj2) => {
       return {
         key,
         type: 'deleted',
-        value: obj1[key],
+        value: value1,
       };
     }
     if (!_.has(obj1, key) && _.has(obj2, key)) {
       return {
         key,
         type: 'added',
-        value: obj2[key],
+        value: value2,
       };
     }
     if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
@@ -45,10 +39,23 @@ const gendiff = (obj1, obj2) => {
         valueAfter: value2,
       };
     }
-    return { key, type: 'unchanged', value: value1 };
+    return {
+      key,
+      type: 'unchanged',
+      value: value1,
+    };
   });
 
   return difference;
 };
 
-export default gendiff;
+const makeDiff = (obj1, obj2) => {
+  const differenceWrapper = {
+    type: 'root',
+    children: gendiff(obj1, obj2),
+  };
+
+  return differenceWrapper;
+};
+
+export default makeDiff;
