@@ -15,7 +15,7 @@ const stringify = (elem, depth) => {
     const stringWithKey = `${spaces(depth + 1)}  ${key}: ${stringifiedValue}`;
     return stringWithKey;
   });
-  const stringWithBrackets = `{\n${str}\n${spaces(depth)}}`;
+  const stringWithBrackets = `{\n${str.join('\n')}\n${spaces(depth)}  }`;
   return stringWithBrackets;
 };
 
@@ -49,7 +49,9 @@ const createNestedTxt = (difference) => {
       case 'changed': {
         const valueBefore = stringify(node.valueBefore, depth);
         const valueAfter = stringify(node.valueAfter, depth);
-        return (`${spaces(depth)}- ${node.key}: ${valueBefore}\n${spaces(depth)}+ ${node.key}: ${valueAfter}`);
+        const stringBefore = `${spaces(depth)}- ${node.key}: ${valueBefore}`;
+        const stringAfter = `${spaces(depth)}+ ${node.key}: ${valueAfter}`;
+        return (`${stringBefore}\n${stringAfter}`);
       }
       default:
         console.log('error in switch case');
