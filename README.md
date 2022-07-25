@@ -12,3 +12,7 @@
 
 ## YAML comparison
 [![asciicast](https://asciinema.org/a/OpCaM0XjQagWy6uuPgQpkyxWZ.svg)](https://asciinema.org/a/OpCaM0XjQagWy6uuPgQpkyxWZ)
+
+
+## Nested files comparison
+[![asciicast](https://asciinema.org/a/R3Z5OWYbSo6qeTfkgZd9BjPc6.svg)](https://asciinema.org/a/R3Z5OWYbSo6qeTfkgZd9BjPc6)

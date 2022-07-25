@@ -19,7 +19,7 @@ const stringify = (elem, depth) => {
   return stringWithBrackets;
 };
 
-const createNestedTxt = (difference) => {
+const stylish = (difference) => {
   const iter = (node, depth) => {
     const status = node.type;
 
@@ -56,36 +56,10 @@ const createNestedTxt = (difference) => {
       default:
         console.log('error in switch case');
     }
+    return 'gh';
   };
 
   return iter(difference, 0);
-  // difference.forEach((obj) => {
-  //   if (obj.type === 'root') {
-  //     result.push(`${spaces}  ${obj.key}: ${obj.value}\n`);
-  //   } else if (obj.type === 'unchanged') {
-  //     result.push(`${spaces}  ${obj.key}: ${obj.value}\n`);
-  //   } else if (obj.type === 'deleted') {
-  //     result.push(`${spaces}- ${obj.key}: ${obj.value}\n`);
-  //   } else if (obj.type === 'added') {
-  //     result.push(`${spaces}+ ${obj.key}: ${obj.value}\n`);
-  //   } else if (obj.type === 'changed') {
-  //     result.push(`${spaces}- ${obj.key}: ${obj.valueBefore}\n`);
-  //     result.push(`${spaces}+ ${obj.key}: ${obj.valueAfter}\n`);
-  //   } else if (obj.type === 'nested') {
-  //     result.push(`${spaces}  ${obj.key}: {\n`);
-  //     const a = createNestedTxt(obj.children, depth + 1);
-  //     // console.log('top');
-  //     result.push(a);
-  //     result.push(`${spaces}\n`);
-  //     // result += createNestedTxt(obj.value, depth + 4);
-  //   } else if (_.isPlainObject(obj.children)) {
-  //     result.push(`${spaces}  ${obj.key}: {\n`);
-  //     const b = createNestedTxt(stringifyObject(obj.value, depth + 1));
-  //     result.push(b);
-  //     result.push(`${spaces}\n`);
-  //     // result += createNestedTxt(obj.value, depth + 4);
-  //   }
-  // });
 };
 
-export default createNestedTxt;
+export default stylish;
