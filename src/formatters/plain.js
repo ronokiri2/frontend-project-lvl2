@@ -6,12 +6,13 @@ const stringify = (elem) => {
   if (elem === null) {
     return null;
   }
-  if (!_.isObject(elem)) {
+  if (_.isString(elem)) {
     return `'${elem}'`;
   }
   if (_.isObject(elem)) {
     return '[complex value]';
   }
+  return elem;
 };
 
 const iter = (node, path) => {
@@ -22,7 +23,7 @@ const iter = (node, path) => {
       return node.children.flatMap((child) => iter(child, ''));
     }
     case 'nested': {
-      return node.children.flatMap((child) => iter(child, ''));
+      return node.children.flatMap((child) => iter(child, [...path, node.key]));
     }
     case 'deleted': {
       const prop = getName(path, node.key);
