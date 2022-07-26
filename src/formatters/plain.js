@@ -3,6 +3,9 @@ import _ from 'lodash';
 const getName = (path, name) => [...path, name].join('.');
 
 const stringify = (elem) => {
+  if (elem === null) {
+    return null;
+  }
   if (!_.isObject(elem)) {
     return `'${elem}'`;
   }
@@ -28,12 +31,12 @@ const iter = (node, path) => {
     case 'added': {
       const prop = getName(path, node.key);
       const value = stringify(node.value);
-      return `Property '${prop}' was added with value ${value}`;
+      return `Property '${prop}' was added with value: ${value}`;
     }
     case 'changed': {
       const prop = getName(path, node.key);
       const valueBefore = stringify(node.valueBefore);
-      const valueAfter = stringify(node.valueBefore);
+      const valueAfter = stringify(node.valueAfter);
       return `Property '${prop}' was updated. From ${valueBefore} to ${valueAfter}`;
     }
     case 'unchanged': {
