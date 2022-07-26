@@ -28,7 +28,6 @@ const stylish = (difference) => {
         return `{\n${node.children.map((child) => iter(child, depth + 1)).join('\n')}\n}`;
 
       case 'nested': {
-        // const value = `\n${node.children.map((child) => iter(child, depth + 1)).join('\n')}}`;
         const value = node.children.map((child) => iter(child, depth + 1));
         const joinedValue = value.join('\n');
         const valueWithBrackets = `{\n${joinedValue}\n${spaces(depth)}  }`;
