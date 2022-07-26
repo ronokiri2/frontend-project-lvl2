@@ -18,6 +18,9 @@ const iter = (node, path) => {
     case 'root': {
       return node.children.flatMap((child) => iter(child, ''));
     }
+    case 'nested': {
+      return node.children.flatMap((child) => iter(child, ''));
+    }
     case 'deleted': {
       const prop = getName(path, node.key);
       return `Property '${prop}' was removed`;
