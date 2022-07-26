@@ -20,15 +20,15 @@ const iter = (node, path) => {
     }
     case 'deleted': {
       const prop = getName(path, node.key);
-      return `Property ${prop} was removed`;
+      return `Property '${prop}' was removed`;
     }
     case 'added': {
       const prop = getName(path, node.key);
-      return `Property ${prop} was added with value ${prop}`;
+      return `Property '${prop}' was added with value '${node.value}'`;
     }
     case 'changed': {
       const prop = getName(path, node.key);
-      return `Property ${prop} was updated. From ${prop} to ${prop}`;
+      return `Property '${prop}' was updated. From '${node.valueBefore}' to '${node.valueAfter}'`;
     }
     case 'unchanged': {
       return [];
