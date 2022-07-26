@@ -4,7 +4,7 @@ const getName = (path, name) => [...path, name].join('.');
 
 const stringify = (elem) => {
   if (!_.isObject(elem)) {
-    return elem;
+    return `'${elem}'`;
   }
   if (_.isObject(elem)) {
     return '[complex value]';
@@ -24,11 +24,14 @@ const iter = (node, path) => {
     }
     case 'added': {
       const prop = getName(path, node.key);
-      return `Property '${prop}' was added with value '${node.value}'`;
+      const value = stringify(node.value);
+      return `Property '${prop}' was added with value ${value}`;
     }
     case 'changed': {
       const prop = getName(path, node.key);
-      return `Property '${prop}' was updated. From '${node.valueBefore}' to '${node.valueAfter}'`;
+      const valueBefore = stringify(node.valueBefore);
+      const valueAfter = stringify(node.valueBefore);
+      return `Property '${prop}' was updated. From ${valueBefore} to ${valueAfter}`;
     }
     case 'unchanged': {
       return [];
