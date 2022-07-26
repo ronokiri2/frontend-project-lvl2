@@ -20,23 +20,18 @@ const iter = (node, path) => {
     }
     case 'deleted': {
       const prop = getName(path, node.key);
-      console.log(`Property ${prop} was removed`);
-      break;
+      return `Property ${prop} was removed`;
     }
     case 'added': {
       const prop = getName(path, node.key);
-      console.log(`Property ${prop} was added with value ${prop}`);
-      break;
+      return `Property ${prop} was added with value ${prop}`;
     }
     case 'changed': {
       const prop = getName(path, node.key);
-      console.log(`Property ${prop} was updated. From ${prop} to ${prop}`);
-      break;
+      return `Property ${prop} was updated. From ${prop} to ${prop}`;
     }
     case 'unchanged': {
-      const prop = getName(path, node.key);
-      console.log(`Property ${prop} was same`);
-      break;
+      return [];
     }
     default: {
       console.log('🌳 🌲');
